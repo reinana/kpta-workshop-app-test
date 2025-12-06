@@ -1,337 +1,783 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KPTA相互レビューワークショップ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            overflow: hidden;
-        }
-        .slide-container {
-            width: 1280px;
-            height: 720px;
-            transform-origin: top left;
-        }
-        .slide {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: all 0.5s ease-in-out;
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        .slide.active {
-            display: flex;
-            transform: translateX(0);
-            opacity: 1;
-        }
-        .slide.prev {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-        .box-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .fade-in {
-            animation: fadeIn 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #FF9D5C;
-            animation: spin 1s ease infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .skill-table th, .skill-table td {
-            border: 1px solid #e2e8f0;
-            padding: 4px;
-            font-size: 12px;
-        }
-        .skill-table th {
-            background-color: #f7fafc;
-        }
-    </style>
-</head>
-<body class="bg-gray-800 flex justify-center items-center h-screen">
-
-
-    <div id="slide-wrapper" class="relative">
-        <div id="slide-container" class="slide-container relative bg-white">
-
-
-            <!-- Slide 1: Title -->
-            <div class="slide active flex-col justify-center items-center p-8 text-center text-white bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1280&auto=format&fit=crop');">
-                <div class="absolute inset-0 bg-black opacity-60"></div>
-                <div class="relative z-10">
-                    <h1 class="text-6xl font-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">KPTA相互レビュー振り返りワーク</h1>
-                    <div class="w-[100px] h-[5px] bg-[#FF9D5C] mx-auto my-6"></div>
-                    <p class="text-3xl" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">AIの力で個人の振り返りを深め、対話によって次のアクションへ</p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>KPTA相互レビューワークショップ</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                font-family: "Noto Sans JP", sans-serif;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                transform-origin: top left;
+            }
+            .slide {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transition: all 0.5s ease-in-out;
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            .slide.active {
+                display: flex;
+                transform: translateX(0);
+                opacity: 1;
+            }
+            .slide.prev {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            .box-shadow {
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .fade-in {
+                animation: fadeIn 1s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .spinner {
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border-left-color: #ff9d5c;
+                animation: spin 1s ease infinite;
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            .skill-table th,
+            .skill-table td {
+                border: 1px solid #e2e8f0;
+                padding: 4px;
+                font-size: 12px;
+            }
+            .skill-table th {
+                background-color: #f7fafc;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-800 flex justify-center items-center h-screen">
+        <div id="slide-wrapper" class="relative">
+            <div id="slide-container" class="slide-container relative bg-white">
+                <!-- Slide 1: Title -->
+                <div
+                    class="slide active flex-col justify-center items-center p-8 text-center text-white bg-cover bg-center"
+                    style="
+                        background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1280&auto=format&fit=crop');
+                    "
+                >
+                    <div class="absolute inset-0 bg-black opacity-60"></div>
+                    <div class="relative z-10">
+                        <h1
+                            class="text-6xl font-bold mb-4"
+                            style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)"
+                        >
+                            KPTA相互レビュー振り返りワーク
+                        </h1>
+                        <div
+                            class="w-[100px] h-[5px] bg-[#FF9D5C] mx-auto my-6"
+                        ></div>
+                        <p
+                            class="text-3xl"
+                            style="text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5)"
+                        >
+                            AIの力で個人の振り返りを深め、対話によって次のアクションへ
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-
-            <!-- Slide 2: Agenda -->
-            <div class="slide flex-col justify-center p-16">
-                <div class="absolute left-0 top-0 bottom-0 w-4 bg-[#FF9D5C]"></div>
-                <h2 class="text-5xl font-bold mb-12 text-gray-800">ワークの流れ</h2>
-                <ul class="space-y-6 text-3xl text-gray-700">
-                    <li class="flex items-center"><span class="text-[#FF9D5C] text-4xl mr-4">●</span>KPTA手法確認 (5分)</li>
-                    <li class="flex items-center"><span class="text-[#FF9D5C] text-4xl mr-4">●</span>グランドルールの確認 (5分)</li>
-                    <li class="flex items-center"><span class="text-[#FF9D5C] text-4xl mr-4">●</span>事前KPTA記入 (15分)</li>
-                    <li class="flex items-center"><span class="text-[#FF9D5C] text-4xl mr-4">●</span>相互レビュー＆対話 (15分)</li>
-                    <li class="flex items-center"><span class="text-[#FF9D5C] text-4xl mr-4">●</span>まとめ＆アクションプラン作成 (15分)</li>
-                </ul>
-            </div>
-
-
-            <!-- Slide 3: Why KPTA -->
-            <div class="slide flex-col justify-center p-16">
-                 <h2 class="text-5xl font-bold mb-8 text-gray-800">なぜ"KPTA"で振り返るのか？</h2>
-                 <p class="text-2xl text-gray-600 mb-10">振り返りにおける定番のフレームワークです。「気づき」と「行動」を整理しやすく、チームの知恵を掛け合わせられます。</p>
-                 <div class="w-full bg-gray-50 p-8 rounded-lg">
-                    <h3 class="text-3xl font-bold text-gray-700 mb-6">KPTAの各要素:</h3>
-                    <ul class="space-y-4 text-2xl">
-                        <li><strong class="text-[#FF9D5C]">Keep:</strong> 続けたいこと、うまくいったこと</li>
-                        <li><strong class="text-[#FF9D5C]">Problem:</strong> 課題、改善したいこと</li>
-                        <li><strong class="text-[#FF9D5C]">Try:</strong> 次に試したいこと、挑戦したいこと</li>
-                        <li><strong class="text-[#FF9D5C]">Adventure:</strong> 挑戦したこと、新たに取り組んだこと</li>
+                <!-- Slide 2: Agenda -->
+                <div class="slide flex-col justify-center p-16">
+                    <div
+                        class="absolute left-0 top-0 bottom-0 w-4 bg-[#FF9D5C]"
+                    ></div>
+                    <h2 class="text-5xl font-bold mb-12 text-gray-800">
+                        ワークの流れ
+                    </h2>
+                    <ul class="space-y-6 text-3xl text-gray-700">
+                        <li class="flex items-center">
+                            <span class="text-[#FF9D5C] text-4xl mr-4">●</span
+                            >KPTA手法確認 (5分)
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-[#FF9D5C] text-4xl mr-4">●</span
+                            >グランドルールの確認 (5分)
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-[#FF9D5C] text-4xl mr-4">●</span
+                            >事前KPTA記入 (15分)
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-[#FF9D5C] text-4xl mr-4">●</span
+                            >相互レビュー＆対話 (15分)
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-[#FF9D5C] text-4xl mr-4">●</span
+                            >まとめ＆アクションプラン作成 (15分)
+                        </li>
                     </ul>
-                 </div>
-            </div>
+                </div>
 
+                <!-- Slide 3: Why KPTA -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-8 text-gray-800">
+                        なぜ"KPTA"で振り返るのか？
+                    </h2>
+                    <p class="text-2xl text-gray-600 mb-10">
+                        振り返りにおける定番のフレームワークです。「気づき」と「行動」を整理しやすく、チームの知恵を掛け合わせられます。
+                    </p>
+                    <div class="w-full bg-gray-50 p-8 rounded-lg">
+                        <h3 class="text-3xl font-bold text-gray-700 mb-6">
+                            KPTAの各要素:
+                        </h3>
+                        <ul class="space-y-4 text-2xl">
+                            <li>
+                                <strong class="text-[#FF9D5C]">Keep:</strong>
+                                続けたいこと、うまくいったこと
+                            </li>
+                            <li>
+                                <strong class="text-[#FF9D5C]">Problem:</strong>
+                                課題、改善したいこと
+                            </li>
+                            <li>
+                                <strong class="text-[#FF9D5C]">Try:</strong>
+                                次に試したいこと、挑戦したいこと
+                            </li>
+                            <li>
+                                <strong class="text-[#FF9D5C]"
+                                    >Adventure:</strong
+                                >
+                                挑戦したこと、新たに取り組んだこと
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-            <!-- NEW Slide 4: Skill Definition -->
-            <div class="slide flex-col justify-center p-12">
-                <h2 class="text-5xl font-bold mb-6 text-gray-800">組織で求められるスキルセット</h2>
-                <div class="flex w-full gap-6">
-                    <div class="w-full overflow-auto" style="height: 520px;">
-                        <h3 class="text-2xl font-bold text-gray-700 mb-2">スキル定義</h3>
-                        <table class="w-full skill-table text-left">
-                            <thead><tr><th>スキル</th><th>初級</th><th>中級</th><th>上級</th></tr></thead>
-                            <tbody>
-                                <tr><th>構造化・論点整理</th><td>基本的なフレームワークを学び、シンプルな課題を整理する練習を行う。</td><td>実務で問題分析を繰り返し、複雑な課題から論点を抽出して整理する能力を高める。</td><td>高度な分析手法を駆使し、組織全体の戦略課題を構造化して論点を明確化し、チームを指導できるようになる。</td></tr>
-                                <tr><th>言語化・具体化</th><td>自身の考えを簡潔な言葉で表現する練習を積み、基本的な説明力を身につける。</td><td>多様な相手に合わせ専門用語を平易に言い換えるなど、具体的に伝えるスキルを実務で磨く。</td><td>複雑な概念でもわかりやすく言語化し、組織内でビジョンや戦略を具体的に示して周囲を導けるようになる。</td></tr>
-                                <tr><th>編集</th><td>文章の基本的な校正・推敲方法を学び、誤字脱字を修正するなどの実践を重ねる。</td><td>様々な文章を編集する経験を積み、構成改善やトーン調整など内容を洗練する技術を身につける。</td><td>編集方針の策定や複数の執筆者の統括を経験し、高度な編集判断とコンテンツ管理でチームをリードできるようになる。</td></tr>
-                                <tr><th>観察・仮説構築</th><td>現場での出来事を注意深く観察する習慣をつけ、気づいた点から簡単な仮説を立てて検証する。</td><td>データや現場知識を基に仮説を構築し、プロジェクトで試行錯誤しながら仮説検証スキルを向上させる。</td><td>高度な分析力と経験により、複雑な状況から仮説を素早く立てて検証プロセスを指揮できるようになる。</td></tr>
-                                <tr><th>ファシリテーション</th><td>小規模な会議の進行役を試し、基本的な議事進行スキルを身につけ始める。</td><td>会議やワークショップを継続してファシリテートし、参加者の意見を引き出し議論をまとめる応用力を養う。</td><td>大規模な議論や組織横断プロジェクトを円滑に進行・調整し、チームを導く高度なファシリテーション力を発揮できるようになる。</td></tr>
-                                <tr><th>アサーティブ</th><td>自分の意見や要望を丁寧に伝える練習を行い、基本的な自己主張スキルを身につける。</td><td>様々な場面で率直に意見を述べる経験を積み、対立時も相手を尊重し自分の立場を主張する応用力を養う。</td><td>高度な対人コミュニケーション力を磨き、組織内で影響力を持って建設的に意見を主導できるようになる。</td></tr>
-                                <tr><th>計画</th><td>小さなタスクの計画立案と実行を経験し、スケジュール管理や段取りの基礎を学ぶ。</td><td>複数の要素や関係者を考慮したプロジェクト計画を立案・調整し、状況に応じて計画修正する応用スキルを磨く。</td><td>戦略的視点で長期計画やリソース配分を行い、組織目標に沿った計画策定でチームを率いることができるレベルに到達する。</td></tr>
-                                <tr><th>ITリテラシー</th><td>基本的なPC操作や業務ソフトの使い方を習得し、日常業務でITツールを支障なく扱う。</td><td>新しいソフトやシステムを自ら学び、業務効率化のためITツールを積極的に活用・改善できるようにする。</td><td>プログラミング等の高度なIT知識も身につけ、組織のIT戦略立案やメンバーへの指導ができるレベルに到達する。</td></tr>
-                                <tr><th>遂行</th><td>与えられたタスクを期限内にやり遂げ、仕事を完遂する基礎力を養う。</td><td>複数業務を優先順位づけして遂行し、困難な状況でも計画通りにやり遂げる応用力を身につける。</td><td>大規模プロジェクトの遂行を主導し、リソース配分やリスク管理を行って成果を出す実行力を発揮できるようになる。</td></tr>
-                                <tr><th>リカバリー</th><td>小さなミスは迅速に報告・修正し、失敗から学んで立て直す基本習慣を身につける。</td><td>トラブル発生時に落ち着いて対処策を講じる経験を重ね、プロジェクトを立て直す応用力を養う。</td><td>危機管理の知識と経験を積み、重大な問題から迅速に立て直しチームを導く高度な対処能力を発揮できるようになる。</td></tr>
-                            </tbody>
-                        </table>
-                        <div class="flex items-center gap-4 mt-4">
-                            <p class="text-xl">あなたのチームを選択してください：</p>
-                            <select id="team-select" class="p-2 border rounded-lg text-xl">
-                                <option value="Team1_unit-a">Team1_unit-a</option>
-                                <option value="Team1_unit-b">Team1_unit-b</option>
-                                <option value="Team2">Team2</option>
-                            </select>
+                <!-- NEW Slide 4: Skill Definition -->
+                <div class="slide flex-col justify-center p-12">
+                    <h2 class="text-5xl font-bold mb-6 text-gray-800">
+                        組織で求められるスキルセット
+                    </h2>
+                    <div class="flex w-full gap-6">
+                        <div class="w-full overflow-auto" style="height: 520px">
+                            <h3 class="text-2xl font-bold text-gray-700 mb-2">
+                                スキル定義
+                            </h3>
+                            <table class="w-full skill-table text-left">
+                                <thead>
+                                    <tr>
+                                        <th>スキル</th>
+                                        <th>初級</th>
+                                        <th>中級</th>
+                                        <th>上級</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>構造化・論点整理</th>
+                                        <td>
+                                            基本的なフレームワークを学び、シンプルな課題を整理する練習を行う。
+                                        </td>
+                                        <td>
+                                            実務で問題分析を繰り返し、複雑な課題から論点を抽出して整理する能力を高める。
+                                        </td>
+                                        <td>
+                                            高度な分析手法を駆使し、組織全体の戦略課題を構造化して論点を明確化し、チームを指導できるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>言語化・具体化</th>
+                                        <td>
+                                            自身の考えを簡潔な言葉で表現する練習を積み、基本的な説明力を身につける。
+                                        </td>
+                                        <td>
+                                            多様な相手に合わせ専門用語を平易に言い換えるなど、具体的に伝えるスキルを実務で磨く。
+                                        </td>
+                                        <td>
+                                            複雑な概念でもわかりやすく言語化し、組織内でビジョンや戦略を具体的に示して周囲を導けるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>編集</th>
+                                        <td>
+                                            文章の基本的な校正・推敲方法を学び、誤字脱字を修正するなどの実践を重ねる。
+                                        </td>
+                                        <td>
+                                            様々な文章を編集する経験を積み、構成改善やトーン調整など内容を洗練する技術を身につける。
+                                        </td>
+                                        <td>
+                                            編集方針の策定や複数の執筆者の統括を経験し、高度な編集判断とコンテンツ管理でチームをリードできるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>観察・仮説構築</th>
+                                        <td>
+                                            現場での出来事を注意深く観察する習慣をつけ、気づいた点から簡単な仮説を立てて検証する。
+                                        </td>
+                                        <td>
+                                            データや現場知識を基に仮説を構築し、プロジェクトで試行錯誤しながら仮説検証スキルを向上させる。
+                                        </td>
+                                        <td>
+                                            高度な分析力と経験により、複雑な状況から仮説を素早く立てて検証プロセスを指揮できるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>ファシリテーション</th>
+                                        <td>
+                                            小規模な会議の進行役を試し、基本的な議事進行スキルを身につけ始める。
+                                        </td>
+                                        <td>
+                                            会議やワークショップを継続してファシリテートし、参加者の意見を引き出し議論をまとめる応用力を養う。
+                                        </td>
+                                        <td>
+                                            大規模な議論や組織横断プロジェクトを円滑に進行・調整し、チームを導く高度なファシリテーション力を発揮できるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>アサーティブ</th>
+                                        <td>
+                                            自分の意見や要望を丁寧に伝える練習を行い、基本的な自己主張スキルを身につける。
+                                        </td>
+                                        <td>
+                                            様々な場面で率直に意見を述べる経験を積み、対立時も相手を尊重し自分の立場を主張する応用力を養う。
+                                        </td>
+                                        <td>
+                                            高度な対人コミュニケーション力を磨き、組織内で影響力を持って建設的に意見を主導できるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>計画</th>
+                                        <td>
+                                            小さなタスクの計画立案と実行を経験し、スケジュール管理や段取りの基礎を学ぶ。
+                                        </td>
+                                        <td>
+                                            複数の要素や関係者を考慮したプロジェクト計画を立案・調整し、状況に応じて計画修正する応用スキルを磨く。
+                                        </td>
+                                        <td>
+                                            戦略的視点で長期計画やリソース配分を行い、組織目標に沿った計画策定でチームを率いることができるレベルに到達する。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>ITリテラシー</th>
+                                        <td>
+                                            基本的なPC操作や業務ソフトの使い方を習得し、日常業務でITツールを支障なく扱う。
+                                        </td>
+                                        <td>
+                                            新しいソフトやシステムを自ら学び、業務効率化のためITツールを積極的に活用・改善できるようにする。
+                                        </td>
+                                        <td>
+                                            プログラミング等の高度なIT知識も身につけ、組織のIT戦略立案やメンバーへの指導ができるレベルに到達する。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>遂行</th>
+                                        <td>
+                                            与えられたタスクを期限内にやり遂げ、仕事を完遂する基礎力を養う。
+                                        </td>
+                                        <td>
+                                            複数業務を優先順位づけして遂行し、困難な状況でも計画通りにやり遂げる応用力を身につける。
+                                        </td>
+                                        <td>
+                                            大規模プロジェクトの遂行を主導し、リソース配分やリスク管理を行って成果を出す実行力を発揮できるようになる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>リカバリー</th>
+                                        <td>
+                                            小さなミスは迅速に報告・修正し、失敗から学んで立て直す基本習慣を身につける。
+                                        </td>
+                                        <td>
+                                            トラブル発生時に落ち着いて対処策を講じる経験を重ね、プロジェクトを立て直す応用力を養う。
+                                        </td>
+                                        <td>
+                                            危機管理の知識と経験を積み、重大な問題から迅速に立て直しチームを導く高度な対処能力を発揮できるようになる。
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="flex items-center gap-4 mt-4">
+                                <p class="text-xl">
+                                    あなたのチームを選択してください：
+                                </p>
+                                <select
+                                    id="team-select"
+                                    class="p-2 border rounded-lg text-xl"
+                                >
+                                    <option value="Team1_unit-a">
+                                        Team1_unit-a
+                                    </option>
+                                    <option value="Team1_unit-b">
+                                        Team1_unit-b
+                                    </option>
+                                    <option value="Team2">Team2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Ground Rules (Previously 4) -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-12 text-gray-800">
+                        良い振り返りを促す、今回の『グランドルール』
+                    </h2>
+                    <ul class="space-y-8 text-3xl text-gray-700">
+                        <li>
+                            <strong>No Judge:</strong>
+                            話の内容はまず受け止め、全体を一緒に見渡しましょう。
+                        </li>
+                        <li>
+                            <strong>Be Curious:</strong>
+                            互いの経験に好奇心を持ち、たくさん問いかけましょう。
+                        </li>
+                        <li>
+                            <strong>Be Open:</strong>
+                            安心して不安や葛藤を開示しましょう。
+                        </li>
+                        <li>
+                            <strong>Listen First:</strong>
+                            発言だけでなく「聴く」ことも大切な貢献です。
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Slide 6: Initial Goal Input (Previously 5) -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-8 text-gray-800">
+                        Step 1: 期初の目標を振り返る
+                    </h2>
+                    <div class="flex w-full gap-8 items-center">
+                        <div class="w-1/3">
+                            <p class="text-xl text-gray-600">
+                                まずはじめに、ご自身の目標設定シートから、今期の目標をコピー＆ペーストしてください。
+                            </p>
+                            <p class="mt-4 text-xl text-gray-600">
+                                この後のAI壁打ちが、あなたの目標と連動して、より的確になります。
+                            </p>
+                        </div>
+                        <div class="w-2/3">
+                            <label class="text-2xl font-semibold text-gray-700"
+                                >期初に立てた今期の目標（定量/定性）</label
+                            >
+                            <textarea
+                                id="initial-goals-input"
+                                class="w-full h-48 p-4 border rounded text-xl mt-2"
+                                placeholder="例：\n・定性目標：〇〇のスキルを習得し、チームの△△に貢献する。\n・定量目標：担当案件のリードタイムを前期比15%削減する。"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 7: KPTA Sheet (Previously 6) -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-8 text-gray-800">
+                        Step 2: KPTAシート（記入用Canvas）
+                    </h2>
+                    <div class="flex w-full gap-8">
+                        <div class="w-1/3">
+                            <p class="text-xl text-gray-600">
+                                先ほど入力した目標を念頭に、KPTAの各欄に自由に入力してください。
+                            </p>
+                            <p class="mt-4 text-xl text-gray-600">
+                                自身の経験を振り返りながら記入しましょう。
+                            </p>
+                        </div>
+                        <div
+                            class="w-2/3 grid grid-cols-2 grid-rows-2 gap-4 text-xl"
+                        >
+                            <div
+                                class="bg-green-50 rounded-lg p-4 flex flex-col"
+                            >
+                                <h3 class="font-bold text-2xl mb-2">
+                                    ✅ Keep 続けたいこと
+                                </h3>
+                                <textarea
+                                    id="keep-input"
+                                    class="w-full flex-grow p-2 border rounded bg-white"
+                                ></textarea
+                                ><button
+                                    class="ai-refine-btn mt-2 text-sm bg-green-200 hover:bg-green-300 text-green-800 py-1 px-2 rounded"
+                                    data-target="keep-input"
+                                    data-label="Keep"
+                                >
+                                    ✨ AI壁打ち
+                                </button>
+                            </div>
+                            <div class="bg-red-50 rounded-lg p-4 flex flex-col">
+                                <h3 class="font-bold text-2xl mb-2">
+                                    ❗ Problem 課題
+                                </h3>
+                                <textarea
+                                    id="problem-input"
+                                    class="w-full flex-grow p-2 border rounded bg-white"
+                                ></textarea
+                                ><button
+                                    class="ai-refine-btn mt-2 text-sm bg-red-200 hover:bg-red-300 text-red-800 py-1 px-2 rounded"
+                                    data-target="problem-input"
+                                    data-label="Problem"
+                                >
+                                    ✨ AI壁打ち
+                                </button>
+                            </div>
+                            <div
+                                class="bg-blue-50 rounded-lg p-4 flex flex-col"
+                            >
+                                <h3 class="font-bold text-2xl mb-2">
+                                    🚀 Try 次に試したいこと
+                                </h3>
+                                <textarea
+                                    id="try-input"
+                                    class="w-full flex-grow p-2 border rounded bg-white"
+                                ></textarea
+                                ><button
+                                    class="ai-refine-btn mt-2 text-sm bg-blue-200 hover:bg-blue-300 text-blue-800 py-1 px-2 rounded"
+                                    data-target="try-input"
+                                    data-label="Try"
+                                >
+                                    ✨ AI壁打ち
+                                </button>
+                            </div>
+                            <div
+                                class="bg-yellow-50 rounded-lg p-4 flex flex-col"
+                            >
+                                <h3 class="font-bold text-2xl mb-2">
+                                    🎯 Adventure 挑戦したこと
+                                </h3>
+                                <textarea
+                                    id="adventure-input"
+                                    class="w-full flex-grow p-2 border rounded bg-white"
+                                ></textarea
+                                ><button
+                                    class="ai-refine-btn mt-2 text-sm bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-1 px-2 rounded"
+                                    data-target="adventure-input"
+                                    data-label="Adventure"
+                                >
+                                    ✨ AI壁打ち
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 8: Group Share (Previously 7) -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-12 text-gray-800">
+                        Step 3: 相互レビュー＆対話
+                    </h2>
+                    <ul class="space-y-8 text-3xl text-gray-700">
+                        <li>
+                            <strong class="text-[#FF9D5C]">【発表者】</strong>
+                            自分のKPTAを説明します（3分）
+                        </li>
+                        <li>
+                            <strong class="text-[#FF9D5C]">【聞き手】</strong>
+                            特に「Problem」と「Try」に注目し、AIサポートボタンをクリックします
+                        </li>
+                        <li class="text-center mt-8">👇</li>
+                        <li>
+                            AI分析ボタンを押すと →
+                            AIが課題の掘り下げ＆新たなTry案を生成します
+                        </li>
+                        <li>
+                            AI結果も参考に、対話で次の一歩を明確にしていきましょう！
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Slide 9: AI Feature (Previously 8) -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-4 text-gray-800">
+                        AIによる『課題深掘り＆TRY提案』
+                    </h2>
+                    <p class="text-2xl text-gray-500 mb-8">
+                        課題の根本原因を探り、新たな挑戦のヒントを得る知的サポート
+                    </p>
+                    <div class="flex w-full gap-8">
+                        <div class="w-1/2 bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-3xl font-bold mb-4">
+                                🔍 課題の根本原因を分析
+                            </h3>
+                            <p class="text-xl text-gray-600 mb-4">
+                                AIが入力したProblem（課題）を分析し、表面的な問題の奥にある根本原因の仮説を提示します。
+                            </p>
+                            <div
+                                id="cause-analysis-output"
+                                class="text-xl bg-white p-4 rounded min-h-[200px]"
+                            ></div>
+                        </div>
+                        <div class="w-1/2 bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-3xl font-bold mb-4">
+                                💡 新たなTryの提案
+                            </h3>
+                            <p class="text-xl text-gray-600 mb-4">
+                                入力したTryをもとに、新たな視点から3つの案を自動生成します。
+                            </p>
+                            <div
+                                id="try-suggestions-output"
+                                class="text-xl bg-white p-4 rounded min-h-[200px]"
+                            ></div>
+                        </div>
+                    </div>
+                    <button
+                        id="ai-analysis-btn"
+                        class="mt-8 w-1/2 mx-auto bg-[#FF9D5C] text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:bg-[#ff8b42] transition-colors flex items-center justify-center text-2xl"
+                    >
+                        <span class="mr-2">✨</span> AI分析を実行
+                    </button>
+                </div>
+
+                <!-- Slide 10: Wrap-up (Previously 9) -->
+                <div class="slide flex-col justify-center p-16">
+                    <h2 class="text-5xl font-bold mb-4 text-gray-800">
+                        まとめとアクションプラン作成
+                    </h2>
+                    <p class="text-2xl text-gray-500 mb-8">
+                        対話から得た気づきと明日から実践できる具体的なアクションを記入しましょう
+                    </p>
+                    <div class="flex w-full gap-8">
+                        <div class="w-1/2">
+                            <h3 class="text-3xl font-bold mb-4">
+                                💡 気づき・学び
+                            </h3>
+                            <p class="text-xl text-gray-600 mb-4">
+                                今日の振り返りと対話から学んだことを整理し、明日からの具体的な一歩を考えましょう。
+                            </p>
+                            <textarea
+                                id="learning-input"
+                                class="w-full h-48 p-4 border rounded text-xl"
+                                placeholder="対話を通じて得た気づきや新たな視点"
+                            ></textarea>
+                            <button
+                                id="ai-action-plan-btn"
+                                class="mt-4 w-full bg-[#FF9D5C] text-white font-bold py-3 px-5 rounded-lg shadow-lg hover:bg-[#ff8b42] transition-colors flex items-center justify-center text-xl"
+                            >
+                                <span class="mr-2">✨</span>
+                                AIでアクションプランを生成
+                            </button>
+                        </div>
+                        <div class="w-1/2">
+                            <h3 class="text-3xl font-bold mb-4">
+                                🚀 アクションプラン
+                            </h3>
+                            <div
+                                id="action-plan-loading"
+                                class="hidden justify-center items-center h-full"
+                            >
+                                <div class="spinner"></div>
+                            </div>
+                            <ul id="action-plan-container" class="space-y-4">
+                                <li>
+                                    <label class="text-xl font-semibold"
+                                        >明日から実践したい具体的な1stステップ</label
+                                    ><textarea
+                                        id="first-step-output"
+                                        class="w-full p-2 border rounded text-xl h-24"
+                                    ></textarea>
+                                </li>
+                                <li>
+                                    <label class="text-xl font-semibold"
+                                        >2週間以内に取り組みたいこと</label
+                                    ><textarea
+                                        id="two-week-goal-output"
+                                        class="w-full p-2 border rounded text-xl h-24"
+                                    ></textarea>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <!-- Navigation -->
+        <div class="fixed bottom-5 right-5 flex space-x-3 z-10">
+            <button
+                id="prevBtn"
+                class="bg-white text-gray-800 font-bold py-3 px-5 rounded-full shadow-lg hover:bg-gray-200 transition-colors"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"
+                    />
+                </svg>
+            </button>
+            <button
+                id="nextBtn"
+                class="bg-white text-gray-800 font-bold py-3 px-5 rounded-full shadow-lg hover:bg-gray-200 transition-colors"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                    />
+                </svg>
+            </button>
+        </div>
 
-            <!-- Slide 5: Ground Rules (Previously 4) -->
-            <div class="slide flex-col justify-center p-16">
-                <h2 class="text-5xl font-bold mb-12 text-gray-800">良い振り返りを促す、今回の『グランドルール』</h2>
-                <ul class="space-y-8 text-3xl text-gray-700">
-                    <li><strong>No Judge:</strong> 話の内容はまず受け止め、全体を一緒に見渡しましょう。</li>
-                    <li><strong>Be Curious:</strong> 互いの経験に好奇心を持ち、たくさん問いかけましょう。</li>
-                    <li><strong>Be Open:</strong> 安心して不安や葛藤を開示しましょう。</li>
-                    <li><strong>Listen First:</strong> 発言だけでなく「聴く」ことも大切な貢献です。</li>
-                </ul>
-            </div>
-
-
-            <!-- Slide 6: Initial Goal Input (Previously 5) -->
-            <div class="slide flex-col justify-center p-16">
-                <h2 class="text-5xl font-bold mb-8 text-gray-800">Step 1: 期初の目標を振り返る</h2>
-                <div class="flex w-full gap-8 items-center">
-                    <div class="w-1/3">
-                        <p class="text-xl text-gray-600">まずはじめに、ご自身の目標設定シートから、今期の目標をコピー＆ペーストしてください。</p>
-                        <p class="mt-4 text-xl text-gray-600">この後のAI壁打ちが、あなたの目標と連動して、より的確になります。</p>
-                    </div>
-                    <div class="w-2/3">
-                        <label class="text-2xl font-semibold text-gray-700">期初に立てた今期の目標（定量/定性）</label>
-                        <textarea id="initial-goals-input" class="w-full h-48 p-4 border rounded text-xl mt-2" placeholder="例：\n・定性目標：〇〇のスキルを習得し、チームの△△に貢献する。\n・定量目標：担当案件のリードタイムを前期比15%削減する。"></textarea>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Slide 7: KPTA Sheet (Previously 6) -->
-            <div class="slide flex-col justify-center p-16">
-                <h2 class="text-5xl font-bold mb-8 text-gray-800">Step 2: KPTAシート（記入用Canvas）</h2>
-                <div class="flex w-full gap-8">
-                    <div class="w-1/3">
-                        <p class="text-xl text-gray-600">先ほど入力した目標を念頭に、KPTAの各欄に自由に入力してください。</p>
-                        <p class="mt-4 text-xl text-gray-600">自身の経験を振り返りながら記入しましょう。</p>
-                    </div>
-                    <div class="w-2/3 grid grid-cols-2 grid-rows-2 gap-4 text-xl">
-                        <div class="bg-green-50 rounded-lg p-4 flex flex-col"><h3 class="font-bold text-2xl mb-2">✅ Keep 続けたいこと</h3><textarea id="keep-input" class="w-full flex-grow p-2 border rounded bg-white"></textarea><button class="ai-refine-btn mt-2 text-sm bg-green-200 hover:bg-green-300 text-green-800 py-1 px-2 rounded" data-target="keep-input" data-label="Keep">✨ AI壁打ち</button></div>
-                        <div class="bg-red-50 rounded-lg p-4 flex flex-col"><h3 class="font-bold text-2xl mb-2">❗ Problem 課題</h3><textarea id="problem-input" class="w-full flex-grow p-2 border rounded bg-white"></textarea><button class="ai-refine-btn mt-2 text-sm bg-red-200 hover:bg-red-300 text-red-800 py-1 px-2 rounded" data-target="problem-input" data-label="Problem">✨ AI壁打ち</button></div>
-                        <div class="bg-blue-50 rounded-lg p-4 flex flex-col"><h3 class="font-bold text-2xl mb-2">🚀 Try 次に試したいこと</h3><textarea id="try-input" class="w-full flex-grow p-2 border rounded bg-white"></textarea><button class="ai-refine-btn mt-2 text-sm bg-blue-200 hover:bg-blue-300 text-blue-800 py-1 px-2 rounded" data-target="try-input" data-label="Try">✨ AI壁打ち</button></div>
-                        <div class="bg-yellow-50 rounded-lg p-4 flex flex-col"><h3 class="font-bold text-2xl mb-2">🎯 Adventure 挑戦したこと</h3><textarea id="adventure-input" class="w-full flex-grow p-2 border rounded bg-white"></textarea><button class="ai-refine-btn mt-2 text-sm bg-yellow-200 hover:bg-yellow-300 text-yellow-800 py-1 px-2 rounded" data-target="adventure-input" data-label="Adventure">✨ AI壁打ち</button></div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Slide 8: Group Share (Previously 7) -->
-            <div class="slide flex-col justify-center p-16">
-                <h2 class="text-5xl font-bold mb-12 text-gray-800">Step 3: 相互レビュー＆対話</h2>
-                <ul class="space-y-8 text-3xl text-gray-700">
-                    <li><strong class="text-[#FF9D5C]">【発表者】</strong> 自分のKPTAを説明します（3分）</li>
-                    <li><strong class="text-[#FF9D5C]">【聞き手】</strong> 特に「Problem」と「Try」に注目し、AIサポートボタンをクリックします</li>
-                    <li class="text-center mt-8">👇</li>
-                    <li>AI分析ボタンを押すと → AIが課題の掘り下げ＆新たなTry案を生成します</li>
-                    <li>AI結果も参考に、対話で次の一歩を明確にしていきましょう！</li>
-                </ul>
-            </div>
-
-
-            <!-- Slide 9: AI Feature (Previously 8) -->
-            <div class="slide flex-col justify-center p-16">
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">AIによる『課題深掘り＆TRY提案』</h2>
-                <p class="text-2xl text-gray-500 mb-8">課題の根本原因を探り、新たな挑戦のヒントを得る知的サポート</p>
-                <div class="flex w-full gap-8">
-                    <div class="w-1/2 bg-gray-50 p-6 rounded-lg">
-                        <h3 class="text-3xl font-bold mb-4">🔍 課題の根本原因を分析</h3>
-                        <p class="text-xl text-gray-600 mb-4">AIが入力したProblem（課題）を分析し、表面的な問題の奥にある根本原因の仮説を提示します。</p>
-                        <div id="cause-analysis-output" class="text-xl bg-white p-4 rounded min-h-[200px]"></div>
-                    </div>
-                    <div class="w-1/2 bg-gray-50 p-6 rounded-lg">
-                        <h3 class="text-3xl font-bold mb-4">💡 新たなTryの提案</h3>
-                        <p class="text-xl text-gray-600 mb-4">入力したTryをもとに、新たな視点から3つの案を自動生成します。</p>
-                        <div id="try-suggestions-output" class="text-xl bg-white p-4 rounded min-h-[200px]"></div>
-                    </div>
-                </div>
-                 <button id="ai-analysis-btn" class="mt-8 w-1/2 mx-auto bg-[#FF9D5C] text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:bg-[#ff8b42] transition-colors flex items-center justify-center text-2xl">
-                    <span class="mr-2">✨</span> AI分析を実行
+        <!-- Modals -->
+        <div
+            id="alert-modal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20"
+        >
+            <div
+                class="bg-white p-8 rounded-2xl shadow-lg text-center max-w-sm"
+            >
+                <p id="alert-message" class="text-lg text-gray-700 mb-6"></p>
+                <button
+                    id="alert-close-btn"
+                    class="bg-[#FF9D5C] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#ff8b42] transition-colors"
+                >
+                    閉じる
                 </button>
             </div>
+        </div>
 
-
-            <!-- Slide 10: Wrap-up (Previously 9) -->
-            <div class="slide flex-col justify-center p-16">
-                <h2 class="text-5xl font-bold mb-4 text-gray-800">まとめとアクションプラン作成</h2>
-                <p class="text-2xl text-gray-500 mb-8">対話から得た気づきと明日から実践できる具体的なアクションを記入しましょう</p>
-                <div class="flex w-full gap-8">
-                    <div class="w-1/2">
-                        <h3 class="text-3xl font-bold mb-4">💡 気づき・学び</h3>
-                        <p class="text-xl text-gray-600 mb-4">今日の振り返りと対話から学んだことを整理し、明日からの具体的な一歩を考えましょう。</p>
-                        <textarea id="learning-input" class="w-full h-48 p-4 border rounded text-xl" placeholder="対話を通じて得た気づきや新たな視点"></textarea>
-                        <button id="ai-action-plan-btn" class="mt-4 w-full bg-[#FF9D5C] text-white font-bold py-3 px-5 rounded-lg shadow-lg hover:bg-[#ff8b42] transition-colors flex items-center justify-center text-xl">
-                            <span class="mr-2">✨</span> AIでアクションプランを生成
-                        </button>
+        <div
+            id="ai-refine-modal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-30 p-4"
+        >
+            <div
+                class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl w-full flex flex-col max-h-[90vh]"
+            >
+                <h2 class="text-3xl font-bold mb-4 text-gray-800 flex-shrink-0">
+                    ✨ AI壁打ちパートナー
+                </h2>
+                <div
+                    id="ai-refine-loading"
+                    class="hidden justify-center items-center h-48 flex-shrink-0"
+                >
+                    <div class="spinner"></div>
+                </div>
+                <div id="ai-refine-content" class="overflow-y-auto pr-4">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-gray-700 mb-2">
+                            🤔 深掘りのための問い
+                        </h3>
+                        <div
+                            id="ai-refine-question"
+                            class="bg-gray-100 p-4 rounded-lg text-lg"
+                        ></div>
                     </div>
-                    <div class="w-1/2">
-                        <h3 class="text-3xl font-bold mb-4">🚀 アクションプラン</h3>
-                        <div id="action-plan-loading" class="hidden justify-center items-center h-full"><div class="spinner"></div></div>
-                        <ul id="action-plan-container" class="space-y-4">
-                            <li><label class="text-xl font-semibold">明日から実践したい具体的な1stステップ</label><textarea id="first-step-output" class="w-full p-2 border rounded text-xl h-24"></textarea></li>
-                            <li><label class="text-xl font-semibold">2週間以内に取り組みたいこと</label><textarea id="two-week-goal-output" class="w-full p-2 border rounded text-xl h-24"></textarea></li>
-                        </ul>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-700 mb-2">
+                            ✍️ 表現の改善案
+                        </h3>
+                        <div
+                            id="ai-refine-suggestion"
+                            class="bg-gray-100 p-4 rounded-lg text-lg"
+                        ></div>
                     </div>
                 </div>
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <!-- Navigation -->
-    <div class="fixed bottom-5 right-5 flex space-x-3 z-10">
-        <button id="prevBtn" class="bg-white text-gray-800 font-bold py-3 px-5 rounded-full shadow-lg hover:bg-gray-200 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button id="nextBtn" class="bg-white text-gray-800 font-bold py-3 px-5 rounded-full shadow-lg hover:bg-gray-200 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-        </button>
-    </div>
-   
-    <!-- Modals -->
-    <div id="alert-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20">
-        <div class="bg-white p-8 rounded-2xl shadow-lg text-center max-w-sm">
-            <p id="alert-message" class="text-lg text-gray-700 mb-6"></p>
-            <button id="alert-close-btn" class="bg-[#FF9D5C] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#ff8b42] transition-colors">閉じる</button>
-        </div>
-    </div>
-   
-    <div id="ai-refine-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-30 p-4">
-        <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl w-full flex flex-col max-h-[90vh]">
-            <h2 class="text-3xl font-bold mb-4 text-gray-800 flex-shrink-0">✨ AI壁打ちパートナー</h2>
-            <div id="ai-refine-loading" class="hidden justify-center items-center h-48 flex-shrink-0"><div class="spinner"></div></div>
-            <div id="ai-refine-content" class="overflow-y-auto pr-4">
-                <div class="mb-6">
-                    <h3 class="text-xl font-bold text-gray-700 mb-2">🤔 深掘りのための問い</h3>
-                    <div id="ai-refine-question" class="bg-gray-100 p-4 rounded-lg text-lg"></div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-700 mb-2">✍️ 表現の改善案</h3>
-                    <div id="ai-refine-suggestion" class="bg-gray-100 p-4 rounded-lg text-lg"></div>
+                <div class="mt-6 flex justify-end space-x-4 flex-shrink-0">
+                    <button
+                        id="ai-refine-copy-btn"
+                        class="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors"
+                    >
+                        改善案をコピー
+                    </button>
+                    <button
+                        id="ai-refine-close-btn"
+                        class="bg-[#FF9D5C] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#ff8b42] transition-colors"
+                    >
+                        閉じる
+                    </button>
                 </div>
             </div>
-            <div class="mt-6 flex justify-end space-x-4 flex-shrink-0">
-                <button id="ai-refine-copy-btn" class="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors">改善案をコピー</button>
-                <button id="ai-refine-close-btn" class="bg-[#FF9D5C] text-white font-bold py-2 px-6 rounded-lg hover:bg-[#ff8b42] transition-colors">閉じる</button>
-            </div>
         </div>
-    </div>
 
+        <script>
+            // --- DOM Elements ---
+            const slides = document.querySelectorAll(".slide");
+            const nextBtn = document.getElementById("nextBtn");
+            const prevBtn = document.getElementById("prevBtn");
+            const alertModal = document.getElementById("alert-modal");
+            const alertMessage = document.getElementById("alert-message");
+            const alertCloseBtn = document.getElementById("alert-close-btn");
+            const aiAnalysisBtn = document.getElementById("ai-analysis-btn");
+            const causeAnalysisOutput = document.getElementById(
+                "cause-analysis-output"
+            );
+            const trySuggestionsOutput = document.getElementById(
+                "try-suggestions-output"
+            );
+            const aiActionPlanBtn =
+                document.getElementById("ai-action-plan-btn");
+            const learningInput = document.getElementById("learning-input");
+            const actionPlanContainer = document.getElementById(
+                "action-plan-container"
+            );
+            const actionPlanLoading = document.getElementById(
+                "action-plan-loading"
+            );
+            const firstStepOutput =
+                document.getElementById("first-step-output");
+            const twoWeekGoalOutput = document.getElementById(
+                "two-week-goal-output"
+            );
+            const aiRefineModal = document.getElementById("ai-refine-modal");
+            const aiRefineCloseBtn = document.getElementById(
+                "ai-refine-close-btn"
+            );
+            const aiRefineCopyBtn =
+                document.getElementById("ai-refine-copy-btn");
+            const aiRefineLoading =
+                document.getElementById("ai-refine-loading");
+            const aiRefineContent =
+                document.getElementById("ai-refine-content");
+            const aiRefineQuestion =
+                document.getElementById("ai-refine-question");
+            const aiRefineSuggestion = document.getElementById(
+                "ai-refine-suggestion"
+            );
+            let currentSlide = 0;
+            let currentRefineTarget = null;
 
-
-
-    <script>
-        // --- DOM Elements ---
-        const slides = document.querySelectorAll('.slide');
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const alertModal = document.getElementById('alert-modal');
-        const alertMessage = document.getElementById('alert-message');
-        const alertCloseBtn = document.getElementById('alert-close-btn');
-        const aiAnalysisBtn = document.getElementById('ai-analysis-btn');
-        const causeAnalysisOutput = document.getElementById('cause-analysis-output');
-        const trySuggestionsOutput = document.getElementById('try-suggestions-output');
-        const aiActionPlanBtn = document.getElementById('ai-action-plan-btn');
-        const learningInput = document.getElementById('learning-input');
-        const actionPlanContainer = document.getElementById('action-plan-container');
-        const actionPlanLoading = document.getElementById('action-plan-loading');
-        const firstStepOutput = document.getElementById('first-step-output');
-        const twoWeekGoalOutput = document.getElementById('two-week-goal-output');
-        const aiRefineModal = document.getElementById('ai-refine-modal');
-        const aiRefineCloseBtn = document.getElementById('ai-refine-close-btn');
-        const aiRefineCopyBtn = document.getElementById('ai-refine-copy-btn');
-        const aiRefineLoading = document.getElementById('ai-refine-loading');
-        const aiRefineContent = document.getElementById('ai-refine-content');
-        const aiRefineQuestion = document.getElementById('ai-refine-question');
-        const aiRefineSuggestion = document.getElementById('ai-refine-suggestion');
-        let currentSlide = 0;
-        let currentRefineTarget = null;
-
-
-        // --- Skill Definitions Data ---
-        const SKILL_DEFINITIONS = `
+            // --- Skill Definitions Data ---
+            const SKILL_DEFINITIONS = `
         - 構造化・論点整理: 初級（基礎的な知識・日常業務で実践）、中級（実務経験を通じて応用力）、上級（高度な知識・経験でリード）
         - 言語化・具体化: 初級（自身の考えを簡潔な言葉で表現）、中級（多様な相手に合わせ具体的に伝える）、上級（複雑な概念を言語化し導く）
         - 編集: 初級（基本的な校正・推敲）、中級（構成改善やトーン調整）、上級（編集方針の策定・統括）
@@ -343,124 +789,136 @@
         - 遂行: 初級（タスクを期限内に完遂）、中級（複数業務を計画通りやり遂げる）、上級（大規模プロジェクトを主導）
         - リカバリー: 初級（迅速に報告・修正）、中級（トラブルからプロジェクトを立て直す）、上級（重大な問題から迅速に立て直し導く）
         `;
-        const SKILL_LEVELS = `
+            const SKILL_LEVELS = `
         - Team1_unit-a: 構造化・論点整理(★)、言語化・具体化(★☆)、編集(★☆)、観察・仮説構築(★☆)、ファシリテーション(★☆)、アサーティブ(★)、計画(★)、ITリテラシー(★☆☆)、遂行(★☆)、リカバリー(★☆)
         - Team1_unit-b: 構造化・論点整理(★)、言語化・具体化(★☆)、編集(★☆)、観察・仮説構築(★)、ファシリテーション(★)、アサーティブ(★)、計画(★)、ITリテラシー(★☆☆)、遂行(★)、リカバリー(★☆)
         - Team2: 構造化・論点整理(★★☆)、言語化・具体化(★★★)、編集(★★★)、観察・仮説構築(★★☆)、ファシリテーション(★★☆)、アサーティブ(★★☆)、計画(★★★)、ITリテラシー(★★★)、遂行(★★★)、リカバリー(★★☆)
         `;
 
+            // --- Scaling ---
+            function scaleSlides() {
+                const container = document.getElementById("slide-container");
+                const wrapper = document.getElementById("slide-wrapper");
+                const slideWidth = 1280;
+                const slideHeight = 720;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                const scale = Math.min(
+                    windowWidth / slideWidth,
+                    windowHeight / slideHeight
+                );
 
-        // --- Scaling ---
-        function scaleSlides() {
-            const container = document.getElementById('slide-container');
-            const wrapper = document.getElementById('slide-wrapper');
-            const slideWidth = 1280;
-            const slideHeight = 720;
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            const scale = Math.min(windowWidth / slideWidth, windowHeight / slideHeight);
-           
-            container.style.transform = `scale(${scale})`;
-            wrapper.style.width = `${slideWidth * scale}px`;
-            wrapper.style.height = `${slideHeight * scale}px`;
-        }
-        window.addEventListener('resize', scaleSlides);
-       
-        // --- Custom Alert ---
-        function showAlert(message) {
-            alertMessage.textContent = message;
-            alertModal.classList.remove('hidden');
-        }
-        alertCloseBtn.addEventListener('click', () => alertModal.classList.add('hidden'));
+                container.style.transform = `scale(${scale})`;
+                wrapper.style.width = `${slideWidth * scale}px`;
+                wrapper.style.height = `${slideHeight * scale}px`;
+            }
+            window.addEventListener("resize", scaleSlides);
 
+            // --- Custom Alert ---
+            function showAlert(message) {
+                alertMessage.textContent = message;
+                alertModal.classList.remove("hidden");
+            }
+            alertCloseBtn.addEventListener("click", () =>
+                alertModal.classList.add("hidden")
+            );
 
-        // --- Slide Navigation ---
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active', 'prev');
-                if (i === index) slide.classList.add('active');
-                else if (i < index) slide.classList.add('prev');
+            // --- Slide Navigation ---
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove("active", "prev");
+                    if (i === index) slide.classList.add("active");
+                    else if (i < index) slide.classList.add("prev");
+                });
+                const activeSlide = slides[index];
+                const animatedElements =
+                    activeSlide.querySelectorAll(".fade-in");
+                animatedElements.forEach((el) => {
+                    el.style.animation = "none";
+                    el.offsetHeight;
+                    el.style.animation = null;
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide =
+                    (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            nextBtn.addEventListener("click", nextSlide);
+            prevBtn.addEventListener("click", prevSlide);
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowRight") nextSlide();
+                if (e.key === "ArrowLeft") prevSlide();
             });
-            const activeSlide = slides[index];
-            const animatedElements = activeSlide.querySelectorAll('.fade-in');
-            animatedElements.forEach(el => {
-                el.style.animation = 'none';
-                el.offsetHeight;
-                el.style.animation = null;
-            });
-        }
 
+            // --- Gemini API Call Logic ---
+            async function callGemini(prompt, maxRetries = 3) {
+                const apiUrl = "/api/gemini";
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
+                for (let i = 0; i < maxRetries; i++) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            // サーバーが期待している形：{ prompt: "..." }
+                            body: JSON.stringify({ prompt }),
+                        });
 
+                        if (!response.ok) {
+                            throw new Error(
+                                `HTTP error! status: ${response.status}`
+                            );
+                        }
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
+                        const result = await response.json();
 
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-       
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
-
-
-        // --- Gemini API Call Logic ---
-        async function callGemini(prompt, maxRetries = 3) {
-
-            const apiUrl = `/api/gemini`;
-            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-
-
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    const result = await response.json();
-                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        return result.candidates[0].content.parts[0].text;
-                    } else {
-                        throw new Error("Invalid response structure from Gemini API");
+                        // api/gemini.js が { text: "..." } を返しているのでそれを見る
+                        if (result.text) {
+                            return result.text;
+                        } else {
+                            throw new Error(
+                                "Invalid response structure from backend"
+                            );
+                        }
+                    } catch (error) {
+                        console.error(`Attempt ${i + 1} failed:`, error);
+                        if (i === maxRetries - 1) throw error;
+                        await new Promise((res) =>
+                            setTimeout(res, Math.pow(2, i) * 1000)
+                        );
                     }
-                } catch (error) {
-                    console.error(`Attempt ${i + 1} failed:`, error);
-                    if (i === maxRetries - 1) throw error;
-                    await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000));
                 }
             }
-        }
 
+            // --- AI Feature 1: KPTA Analysis ---
+            aiAnalysisBtn.addEventListener("click", async () => {
+                const problem = document
+                    .getElementById("problem-input")
+                    .value.trim();
+                const tryAction = document
+                    .getElementById("try-input")
+                    .value.trim();
+                const selectedTeam =
+                    document.getElementById("team-select").value;
 
-        // --- AI Feature 1: KPTA Analysis ---
-        aiAnalysisBtn.addEventListener('click', async () => {
-            const problem = document.getElementById('problem-input').value.trim();
-            const tryAction = document.getElementById('try-input').value.trim();
-            const selectedTeam = document.getElementById('team-select').value;
+                if (!problem || !tryAction) {
+                    showAlert("「Problem」と「Try」の両方を入力してください。");
+                    return;
+                }
 
+                const loadingHTML = `<div class="flex justify-center items-center h-full"><div class="spinner"></div></div>`;
+                causeAnalysisOutput.innerHTML = loadingHTML;
+                trySuggestionsOutput.innerHTML = loadingHTML;
 
-            if (!problem || !tryAction) {
-                showAlert('「Problem」と「Try」の両方を入力してください。');
-                return;
-            }
-
-
-            const loadingHTML = `<div class="flex justify-center items-center h-full"><div class="spinner"></div></div>`;
-            causeAnalysisOutput.innerHTML = loadingHTML;
-            trySuggestionsOutput.innerHTML = loadingHTML;
-
-
-            const prompt = `あなたは、チームの成長を支援するアジャイルコーチです。あるメンバーがKPTAフレームワークで自身の業務を振り返りました。
+                const prompt = `あなたは、チームの成長を支援するアジャイルコーチです。あるメンバーがKPTAフレームワークで自身の業務を振り返りました。
            
             以下の【前提情報】を考慮して、彼の振り返りをサポートしてください。
            
@@ -491,47 +949,59 @@
             ${tryAction}
             ---`;
 
+                try {
+                    const responseText = await callGemini(prompt);
 
-            try {
-                const responseText = await callGemini(prompt);
-               
-                const causeMatch = responseText.match(/### 課題の根本原因分析([\s\S]*?)### 新たなTryの提案/);
-                const tryMatch = responseText.match(/### 新たなTryの提案([\s\S]*)/);
+                    const causeMatch = responseText.match(
+                        /### 課題の根本原因分析([\s\S]*?)### 新たなTryの提案/
+                    );
+                    const tryMatch = responseText.match(
+                        /### 新たなTryの提案([\s\S]*)/
+                    );
 
+                    const causeHTML = causeMatch
+                        ? causeMatch[1].trim().replace(/\n/g, "<br>")
+                        : "分析結果を取得できませんでした。";
+                    let tryHTML = "提案を取得できませんでした。";
+                    if (tryMatch) {
+                        tryHTML =
+                            "<ul>" +
+                            tryMatch[1]
+                                .trim()
+                                .split("- ")
+                                .filter((item) => item)
+                                .map(
+                                    (item) =>
+                                        `<li class="mb-2 list-disc list-inside">${item
+                                            .trim()
+                                            .replace(/\n/g, "<br>")}</li>`
+                                )
+                                .join("") +
+                            "</ul>";
+                    }
 
-                const causeHTML = causeMatch ? causeMatch[1].trim().replace(/\n/g, '<br>') : "分析結果を取得できませんでした。";
-                let tryHTML = "提案を取得できませんでした。";
-                if (tryMatch) {
-                    tryHTML = '<ul>' + tryMatch[1].trim().split('- ').filter(item => item).map(item => `<li class="mb-2 list-disc list-inside">${item.trim().replace(/\n/g, '<br>')}</li>`).join('') + '</ul>';
+                    causeAnalysisOutput.innerHTML = causeHTML;
+                    trySuggestionsOutput.innerHTML = tryHTML;
+                } catch (error) {
+                    console.error("Error during AI analysis:", error);
+                    const errorHTML = `<p class="text-red-500">分析中にエラーが発生しました。時間をおいて再度お試しください。</p>`;
+                    causeAnalysisOutput.innerHTML = errorHTML;
+                    trySuggestionsOutput.innerHTML = errorHTML;
+                }
+            });
+
+            // --- AI Feature 2: Action Plan Generation ---
+            aiActionPlanBtn.addEventListener("click", async () => {
+                const learning = learningInput.value.trim();
+                if (!learning) {
+                    showAlert("「気づき・学び」を入力してください。");
+                    return;
                 }
 
+                actionPlanContainer.classList.add("hidden");
+                actionPlanLoading.classList.remove("hidden");
 
-                causeAnalysisOutput.innerHTML = causeHTML;
-                trySuggestionsOutput.innerHTML = tryHTML;
-
-
-            } catch (error) {
-                console.error("Error during AI analysis:", error);
-                const errorHTML = `<p class="text-red-500">分析中にエラーが発生しました。時間をおいて再度お試しください。</p>`;
-                causeAnalysisOutput.innerHTML = errorHTML;
-                trySuggestionsOutput.innerHTML = errorHTML;
-            }
-        });
-       
-        // --- AI Feature 2: Action Plan Generation ---
-        aiActionPlanBtn.addEventListener('click', async () => {
-            const learning = learningInput.value.trim();
-            if (!learning) {
-                showAlert('「気づき・学び」を入力してください。');
-                return;
-            }
-
-
-            actionPlanContainer.classList.add('hidden');
-            actionPlanLoading.classList.remove('hidden');
-
-
-            const prompt = `あなたは、優秀なプロダクティビティコーチです。クライアントがKPTAワークショップで得た以下の「気づき・学び」を、具体的なアクションプランに変換してください。
+                const prompt = `あなたは、優秀なプロダクティビティコーチです。クライアントがKPTAワークショップで得た以下の「気づき・学び」を、具体的なアクションプランに変換してください。
 
 
             各プランは**50文字以内の簡潔な表現**にしてください。
@@ -549,50 +1019,50 @@
             ${learning}
             ---`;
 
+                try {
+                    const responseText = await callGemini(prompt);
+                    const cleanedText = responseText
+                        .replace(/```json|```/g, "")
+                        .trim();
+                    const plan = JSON.parse(cleanedText);
 
-            try {
-                const responseText = await callGemini(prompt);
-                const cleanedText = responseText.replace(/```json|```/g, '').trim();
-                const plan = JSON.parse(cleanedText);
-
-
-                firstStepOutput.value = plan.first_step || '';
-                twoWeekGoalOutput.value = plan.two_week_goal || '';
-
-
-            } catch (error) {
-                console.error("Error generating action plan:", error);
-                showAlert('アクションプランの生成中にエラーが発生しました。');
-            } finally {
-                actionPlanLoading.classList.add('hidden');
-                actionPlanContainer.classList.remove('hidden');
-            }
-        });
-
-
-        // --- AI Feature 3: AI Wall-E Partner (Refinement) ---
-        document.querySelectorAll('.ai-refine-btn').forEach(button => {
-            button.addEventListener('click', async () => {
-                const targetId = button.dataset.target;
-                const label = button.dataset.label;
-                const targetTextarea = document.getElementById(targetId);
-                const text = targetTextarea.value.trim();
-                const initialGoals = document.getElementById('initial-goals-input').value.trim();
-                const selectedTeam = document.getElementById('team-select').value;
-
-
-                if (!text) {
-                    showAlert(`「${label}」の内容を入力してください。`);
-                    return;
+                    firstStepOutput.value = plan.first_step || "";
+                    twoWeekGoalOutput.value = plan.two_week_goal || "";
+                } catch (error) {
+                    console.error("Error generating action plan:", error);
+                    showAlert(
+                        "アクションプランの生成中にエラーが発生しました。"
+                    );
+                } finally {
+                    actionPlanLoading.classList.add("hidden");
+                    actionPlanContainer.classList.remove("hidden");
                 }
-               
-                currentRefineTarget = targetTextarea;
-                aiRefineModal.classList.remove('hidden');
-                aiRefineContent.classList.add('hidden');
-                aiRefineLoading.classList.remove('hidden');
+            });
 
+            // --- AI Feature 3: AI Wall-E Partner (Refinement) ---
+            document.querySelectorAll(".ai-refine-btn").forEach((button) => {
+                button.addEventListener("click", async () => {
+                    const targetId = button.dataset.target;
+                    const label = button.dataset.label;
+                    const targetTextarea = document.getElementById(targetId);
+                    const text = targetTextarea.value.trim();
+                    const initialGoals = document
+                        .getElementById("initial-goals-input")
+                        .value.trim();
+                    const selectedTeam =
+                        document.getElementById("team-select").value;
 
-                const prompt = `あなたは、思考を深くする対話を専門とする、経験豊富なエグゼクティブコーチです。クライアントの振り返りを、以下の【前提情報】と関連付けながら、本質的な探究へと導く手伝いをしてください。
+                    if (!text) {
+                        showAlert(`「${label}」の内容を入力してください。`);
+                        return;
+                    }
+
+                    currentRefineTarget = targetTextarea;
+                    aiRefineModal.classList.remove("hidden");
+                    aiRefineContent.classList.add("hidden");
+                    aiRefineLoading.classList.remove("hidden");
+
+                    const prompt = `あなたは、思考を深くする対話を専門とする、経験豊富なエグゼクティブコーチです。クライアントの振り返りを、以下の【前提情報】と関連付けながら、本質的な探究へと導く手伝いをしてください。
 
 
                 1.  **深掘りのための問い**: 元のテキストと今期の目標、そして彼のチームで求められるスキルを分析し、クライアントの内省を促す本質的な探究の問いを**1つ**投げかけてください。
@@ -615,83 +1085,97 @@
                 彼のチーム: ${selectedTeam}
                 スキル定義: ${SKILL_DEFINITIONS}
                 チーム別要求スキルレベル: ${SKILL_LEVELS}
-                今期の目標: ${initialGoals || '未設定'}
+                今期の目標: ${initialGoals || "未設定"}
                 ---
                 【元のテキスト (${label})】
                 ${text}
                 ---`;
 
+                    try {
+                        const responseText = await callGemini(prompt);
+                        const questionMatch = responseText.match(
+                            /### 深掘りのための問い([\s\S]*?)### 表現の改善案/
+                        );
+                        const suggestionMatch =
+                            responseText.match(/### 表現の改善案([\s\S]*)/);
 
-                try {
-                    const responseText = await callGemini(prompt);
-                    const questionMatch = responseText.match(/### 深掘りのための問い([\s\S]*?)### 表現の改善案/);
-                    const suggestionMatch = responseText.match(/### 表現の改善案([\s\S]*)/);
-                   
-                    if (questionMatch) {
-                        const questionsText = questionMatch[1].trim();
-                        aiRefineQuestion.innerHTML = questionsText.replace(/\n/g, '<br>');
-                    } else {
-                        aiRefineQuestion.textContent = "質問を取得できませんでした。";
+                        if (questionMatch) {
+                            const questionsText = questionMatch[1].trim();
+                            aiRefineQuestion.innerHTML = questionsText.replace(
+                                /\n/g,
+                                "<br>"
+                            );
+                        } else {
+                            aiRefineQuestion.textContent =
+                                "質問を取得できませんでした。";
+                        }
+
+                        if (suggestionMatch) {
+                            const suggestionText = suggestionMatch[1].trim();
+                            const suggestionHTML = suggestionText
+                                .replace(
+                                    /【改善案】:/,
+                                    '<strong class="text-gray-800">改善案:</strong>'
+                                )
+                                .replace(
+                                    /【理由】:/,
+                                    '<br><strong class="text-gray-800 mt-2 inline-block">理由:</strong>'
+                                )
+                                .replace(/\n/g, "<br>");
+                            aiRefineSuggestion.innerHTML = suggestionHTML;
+
+                            const suggestionOnlyMatch =
+                                suggestionText.match(
+                                    /【改善案】:([\s\S]*?)【理由】/
+                                );
+                            const rawSuggestionText = suggestionOnlyMatch
+                                ? suggestionOnlyMatch[1].trim()
+                                : suggestionText
+                                      .replace(
+                                          /【改善案】:|【理由】:[\s\S]*/g,
+                                          ""
+                                      )
+                                      .trim();
+                            aiRefineCopyBtn.dataset.suggestion =
+                                rawSuggestionText;
+                        } else {
+                            aiRefineSuggestion.textContent =
+                                "改善案を取得できませんでした。";
+                            aiRefineCopyBtn.dataset.suggestion = "";
+                        }
+                    } catch (error) {
+                        console.error("Error during AI refinement:", error);
+                        aiRefineQuestion.textContent = "エラーが発生しました。";
+                        aiRefineSuggestion.textContent =
+                            "時間をおいて再度お試しください。";
+                    } finally {
+                        aiRefineLoading.classList.add("hidden");
+                        aiRefineContent.classList.remove("hidden");
                     }
+                });
+            });
 
+            aiRefineCloseBtn.addEventListener("click", () => {
+                aiRefineModal.classList.add("hidden");
+                currentRefineTarget = null;
+            });
 
-                    if (suggestionMatch) {
-                        const suggestionText = suggestionMatch[1].trim();
-                        const suggestionHTML = suggestionText
-                            .replace(/【改善案】:/, '<strong class="text-gray-800">改善案:</strong>')
-                            .replace(/【理由】:/, '<br><strong class="text-gray-800 mt-2 inline-block">理由:</strong>')
-                            .replace(/\n/g, '<br>');
-                        aiRefineSuggestion.innerHTML = suggestionHTML;
-                       
-                        const suggestionOnlyMatch = suggestionText.match(/【改善案】:([\s\S]*?)【理由】/);
-                        const rawSuggestionText = suggestionOnlyMatch ? suggestionOnlyMatch[1].trim() : suggestionText.replace(/【改善案】:|【理由】:[\s\S]*/g, '').trim();
-                        aiRefineCopyBtn.dataset.suggestion = rawSuggestionText;
-
-
-                    } else {
-                        aiRefineSuggestion.textContent = "改善案を取得できませんでした。";
-                         aiRefineCopyBtn.dataset.suggestion = "";
-                    }
-                   
-                } catch (error) {
-                    console.error("Error during AI refinement:", error);
-                    aiRefineQuestion.textContent = "エラーが発生しました。";
-                    aiRefineSuggestion.textContent = "時間をおいて再度お試しください。";
-                } finally {
-                    aiRefineLoading.classList.add('hidden');
-                    aiRefineContent.classList.remove('hidden');
+            aiRefineCopyBtn.addEventListener("click", () => {
+                const suggestionText = aiRefineCopyBtn.dataset.suggestion;
+                if (currentRefineTarget && suggestionText) {
+                    currentRefineTarget.value = suggestionText;
+                    showAlert("改善案をテキストエリアにコピーしました。");
+                    aiRefineModal.classList.add("hidden");
+                    currentRefineTarget = null;
+                } else {
+                    showAlert("コピーする内容がありません。");
                 }
             });
-        });
 
-
-        aiRefineCloseBtn.addEventListener('click', () => {
-            aiRefineModal.classList.add('hidden');
-            currentRefineTarget = null;
-        });
-
-
-        aiRefineCopyBtn.addEventListener('click', () => {
-            const suggestionText = aiRefineCopyBtn.dataset.suggestion;
-            if (currentRefineTarget && suggestionText) {
-                currentRefineTarget.value = suggestionText;
-                showAlert('改善案をテキストエリアにコピーしました。');
-                aiRefineModal.classList.add('hidden');
-                currentRefineTarget = null;
-            } else {
-                showAlert('コピーする内容がありません。');
-            }
-        });
-
-
-
-
-        // --- Initial Setup ---
-        showSlide(currentSlide);
-        scaleSlides();
-
-
-    </script>
-</body>
+            // --- Initial Setup ---
+            showSlide(currentSlide);
+            scaleSlides();
+        </script>
+    </body>
 </html>
 ```

@@ -861,8 +861,15 @@
 
             // --- Gemini API Call Logic ---
             async function callGemini(prompt, maxRetries = 3) {
+                // ▼ 追加：promptが空ならリクエストを送らずにエラーにする
+                if (
+                    !prompt ||
+                    typeof prompt !== "string" ||
+                    prompt.trim() === ""
+                ) {
+                    throw new Error("Prompt is empty or invalid");
+                }
                 const apiUrl = "/api/gemini";
-                const payload = { prompt }; // ← 期待している形式に合わせる！
 
                 for (let i = 0; i < maxRetries; i++) {
                     try {

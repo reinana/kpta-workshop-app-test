@@ -65,6 +65,7 @@ export default async function handler(req, res) {
 
     // --- APIキー確認 ---
     const apiKey = process.env.GEMINI_API_KEY;
+    console.log("Using GEMINI_API_KEY:", apiKey ? "Present" : "Missing");
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY is missing" });
     }
@@ -72,6 +73,7 @@ export default async function handler(req, res) {
     // --- Gemini SDK 呼び出し ---
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    console.log("Sending prompt to Gemini:", prompt);
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

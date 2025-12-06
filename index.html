@@ -862,6 +862,7 @@
             // --- Gemini API Call Logic ---
             async function callGemini(prompt, maxRetries = 3) {
                 const apiUrl = "/api/gemini";
+                const payload = { prompt }; // ← 期待している形式に合わせる！
 
                 for (let i = 0; i < maxRetries; i++) {
                     try {

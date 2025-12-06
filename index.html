@@ -908,7 +908,8 @@
             }
 
             // --- AI Feature 1: KPTA Analysis ---
-            aiAnalysisBtn.addEventListener("click", async () => {
+            aiAnalysisBtn.addEventListener("click", async (e) => {
+                e.preventDefault();
                 const problem = document
                     .getElementById("problem-input")
                     .value.trim();
@@ -1000,7 +1001,8 @@
             });
 
             // --- AI Feature 2: Action Plan Generation ---
-            aiActionPlanBtn.addEventListener("click", async () => {
+            aiActionPlanBtn.addEventListener("click", async (e) => {
+                e.preventDefault();
                 const learning = learningInput.value.trim();
                 if (!learning) {
                     showAlert("「気づき・学び」を入力してください。");
@@ -1050,7 +1052,8 @@
 
             // --- AI Feature 3: AI Wall-E Partner (Refinement) ---
             document.querySelectorAll(".ai-refine-btn").forEach((button) => {
-                button.addEventListener("click", async () => {
+                button.addEventListener("click", async (e) => {
+                    e.preventDefault();
                     const targetId = button.dataset.target;
                     const label = button.dataset.label;
                     const targetTextarea = document.getElementById(targetId);

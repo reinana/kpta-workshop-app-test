@@ -869,6 +869,7 @@
                 ) {
                     throw new Error("Prompt is empty or invalid");
                 }
+                console.log("【確認】callGeminiに渡された値:", prompt);
                 const apiUrl = "/api/gemini";
 
                 for (let i = 0; i < maxRetries; i++) {
